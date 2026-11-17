@@ -1,0 +1,3078 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- =====================================================================
+       PERSONALIZAÇÃO RÁPIDA (TÍTULO E DESCRIÇÃO DO SITE)
+       Substitua o nome da confeitaria abaixo caso deseje alterar a marca.
+       ===================================================================== -->
+  <title>Atelier Amélia — Confeitaria Artesanal</title>
+  <meta
+    name="description"
+    content="Confeitaria artesanal de pequenos lotes. Bolos autorais, tortas, doces finos e sobremesas preparadas sob encomenda com ingredientes selecionados."
+  />
+
+  <!-- Tipografia editorial e contemporânea (Google Fonts com fallback nativo) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* =========================================================================
+       1. VARIÁVEIS DE IDENTIDADE VISUAL E DESIGN TOKENS
+       Paleta: Creme, Bege, Marrom Chocolate e Rosa Suave
+       ========================================================================= */
+    :root {
+      --bg-cream: #fbf8f3;
+      --bg-paper: #f4ede4;
+      --bg-card: #fffdf9;
+      --border-beige: #e6d9ca;
+      --border-strong: #d5c2ae;
+
+      --chocolate-deep: #2c1a12;
+      --chocolate-medium: #4a3126;
+      --chocolate-muted: #6b5145;
+
+      --rose-soft: #ead0cd;
+      --rose-blush: #dfb6b2;
+      --rose-deep: #b87c76;
+      --gold-accent: #b08962;
+
+      --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 22px;
+      --radius-pill: 999px;
+
+      --shadow-soft: 0 10px 30px -10px rgba(44, 26, 18, 0.08);
+      --shadow-hover: 0 18px 40px -12px rgba(44, 26, 18, 0.14);
+
+      --container-max: 1200px;
+      --header-height: 82px;
+      --transition-smooth: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* =========================================================================
+       2. RESET E BASE SEMÂNTICA
+       ========================================================================= */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--header-height) + 16px);
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-cream);
+      color: var(--chocolate-deep);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    /* Acessibilidade: foco visível para navegação por teclado */
+    :focus-visible {
+      outline: 2px solid var(--chocolate-deep);
+      outline-offset: 3px;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 16px;
+      background: var(--chocolate-deep);
+      color: var(--bg-cream);
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      z-index: 2000;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: top 0.2s ease;
+    }
+
+    .skip-link:focus {
+      top: 16px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* =========================================================================
+       3. TIPOGRAFIA E COMPONENTES REUTILIZÁVEIS
+       ========================================================================= */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--chocolate-muted);
+      margin-bottom: 14px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background-color: var(--rose-deep);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.15rem, 4vw, 3.15rem);
+      font-weight: 600;
+      line-height: 1.14;
+      color: var(--chocolate-deep);
+      letter-spacing: -0.01em;
+    }
+
+    .section-title em {
+      font-style: italic;
+      font-weight: 500;
+      color: var(--chocolate-medium);
+    }
+
+    .section-subtitle {
+      font-size: 1.02rem;
+      color: var(--chocolate-muted);
+      max-width: 600px;
+      margin-top: 14px;
+      font-weight: 400;
+    }
+
+    .section-header {
+      margin-bottom: 52px;
+    }
+
+    .section-header--center {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .section-header--center .eyebrow::after {
+      content: '';
+      width: 28px;
+      height: 1px;
+      background-color: var(--rose-deep);
+    }
+
+    /* Botões */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border-radius: var(--radius-pill);
+      font-size: 0.92rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: transform var(--transition-smooth), background-color var(--transition-smooth),
+        box-shadow var(--transition-smooth), border-color var(--transition-smooth);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary {
+      background-color: var(--chocolate-deep);
+      color: var(--bg-cream);
+      box-shadow: 0 8px 20px -6px rgba(44, 26, 18, 0.35);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--chocolate-medium);
+      box-shadow: 0 12px 26px -6px rgba(44, 26, 18, 0.42);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--chocolate-deep);
+      border: 1px solid var(--border-strong);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--bg-paper);
+      border-color: var(--chocolate-deep);
+    }
+
+    .btn-rose {
+      background-color: var(--rose-soft);
+      color: var(--chocolate-deep);
+      border: 1px solid rgba(184, 124, 118, 0.28);
+    }
+
+    .btn-rose:hover {
+      background-color: var(--rose-blush);
+    }
+
+    .btn-sm {
+      padding: 10px 20px;
+      font-size: 0.85rem;
+    }
+
+    /* =========================================================================
+       4. SEÇÃO 1 — CABEÇALHO FIXO E NAVEGAÇÃO RESPONSIVA
+       ========================================================================= */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--header-height);
+      z-index: 1000;
+      background-color: rgba(251, 248, 243, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .site-header.is-scrolled {
+      background-color: rgba(251, 248, 243, 0.97);
+      border-bottom-color: var(--border-beige);
+      box-shadow: 0 4px 24px rgba(44, 26, 18, 0.05);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      gap: 24px;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--chocolate-deep);
+    }
+
+    .brand-monogram {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--rose-soft);
+      border: 1px solid rgba(184, 124, 118, 0.35);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      font-style: italic;
+      color: var(--chocolate-deep);
+      flex-shrink: 0;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .brand-name {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    .brand-tagline {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--chocolate-muted);
+      margin-top: 2px;
+    }
+
+    .nav-desktop {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-list {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-link {
+      position: relative;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--chocolate-medium);
+      padding: 6px 0;
+      transition: color 0.25s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1.5px;
+      background-color: var(--rose-deep);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.is-active {
+      color: var(--chocolate-deep);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.is-active::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mobile-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--border-beige);
+      align-items: center;
+      justify-content: center;
+      color: var(--chocolate-deep);
+      background-color: var(--bg-card);
+    }
+
+    /* Menu Mobile Drawer */
+    .mobile-menu {
+      position: fixed;
+      inset: var(--header-height) 0 0 0;
+      background-color: var(--bg-cream);
+      padding: 32px 24px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-beige);
+      transform: translateY(-100%);
+      opacity: 0;
+      visibility: hidden;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 990;
+    }
+
+    .mobile-menu.is-open {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .mobile-nav-link {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      font-weight: 600;
+      color: var(--chocolate-deep);
+      padding: 10px 4px;
+      border-bottom: 1px solid var(--border-beige);
+    }
+
+    .mobile-menu-footer {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-top: 24px;
+    }
+
+    /* =========================================================================
+       5. SEÇÃO 2 — HERO (APRESENTAÇÃO PRINCIPAL)
+       ========================================================================= */
+    .hero {
+      padding: calc(var(--header-height) + 48px) 0 88px;
+      background: radial-gradient(circle at 85% 20%, rgba(234, 208, 205, 0.35), transparent 50%),
+        linear-gradient(180deg, var(--bg-cream) 0%, var(--bg-paper) 100%);
+      border-bottom: 1px solid var(--border-beige);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 56px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      border-radius: var(--radius-pill);
+      background-color: var(--rose-soft);
+      color: var(--chocolate-deep);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--rose-deep);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.7rem, 5.2vw, 4.35rem);
+      font-weight: 600;
+      line-height: 1.08;
+      color: var(--chocolate-deep);
+      letter-spacing: -0.015em;
+      margin-bottom: 22px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      font-weight: 500;
+      color: var(--chocolate-medium);
+    }
+
+    .hero-description {
+      font-size: 1.08rem;
+      color: var(--chocolate-muted);
+      max-width: 520px;
+      margin-bottom: 34px;
+      line-height: 1.75;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 42px;
+    }
+
+    .hero-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      padding-top: 26px;
+      border-top: 1px solid var(--border-beige);
+    }
+
+    .hero-highlight-item strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: var(--chocolate-deep);
+      line-height: 1.2;
+    }
+
+    .hero-highlight-item span {
+      font-size: 0.84rem;
+      color: var(--chocolate-muted);
+    }
+
+    .hero-media {
+      position: relative;
+    }
+
+    .hero-image-frame {
+      position: relative;
+      border-radius: 220px 220px var(--radius-lg) var(--radius-lg);
+      overflow: hidden;
+      border: 8px solid var(--bg-card);
+      box-shadow: var(--shadow-hover);
+      aspect-ratio: 4 / 4.7;
+      background-color: var(--bg-paper);
+    }
+
+    .hero-image-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .hero-image-frame:hover img {
+      transform: scale(1.04);
+    }
+
+    .hero-floating-card {
+      position: absolute;
+      bottom: 24px;
+      left: -24px;
+      background-color: rgba(255, 253, 249, 0.96);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-beige);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      box-shadow: var(--shadow-soft);
+      max-width: 245px;
+    }
+
+    .hero-floating-card p {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-style: italic;
+      font-weight: 600;
+      color: var(--chocolate-deep);
+      line-height: 1.25;
+    }
+
+    .hero-floating-card span {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--chocolate-muted);
+      margin-top: 4px;
+    }
+
+    /* =========================================================================
+       6. SEÇÃO 3 — SOBRE A CONFEITARIA
+       ========================================================================= */
+    .about-section {
+      padding: 104px 0;
+      background-color: var(--bg-cream);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      align-items: center;
+      gap: 64px;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-img-main {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-beige);
+      aspect-ratio: 4 / 4.8;
+      background-color: var(--bg-paper);
+    }
+
+    .about-img-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-accent-box {
+      position: absolute;
+      top: -18px;
+      right: -18px;
+      width: 132px;
+      height: 132px;
+      border-radius: 50%;
+      background-color: var(--rose-soft);
+      border: 1px solid rgba(184, 124, 118, 0.35);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 12px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .about-accent-box strong {
+      font-family: var(--font-display);
+      font-size: 1.65rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--chocolate-deep);
+    }
+
+    .about-accent-box span {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--chocolate-medium);
+      margin-top: 4px;
+    }
+
+    .about-content p {
+      color: var(--chocolate-muted);
+      font-size: 1.02rem;
+      margin-bottom: 18px;
+      line-height: 1.78;
+    }
+
+    .about-pillars {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin: 30px 0 32px;
+    }
+
+    .pillar-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      background-color: var(--bg-paper);
+      border: 1px solid var(--border-beige);
+      border-radius: var(--radius-md);
+    }
+
+    .pillar-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--rose-deep);
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+
+    .pillar-item strong {
+      display: block;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--chocolate-deep);
+    }
+
+    .pillar-item span {
+      font-size: 0.83rem;
+      color: var(--chocolate-muted);
+      line-height: 1.45;
+    }
+
+    .about-signature {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border-beige);
+    }
+
+    .signature-script {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.85rem;
+      font-weight: 600;
+      color: var(--chocolate-deep);
+    }
+
+    .signature-role {
+      font-size: 0.82rem;
+      color: var(--chocolate-muted);
+    }
+
+    /* =========================================================================
+       7. SEÇÃO 4 — CARDÁPIO ARTESANAL (CATEGORIAS E CARDS)
+       ========================================================================= */
+    .menu-section {
+      padding: 104px 0;
+      background-color: var(--bg-paper);
+      border-top: 1px solid var(--border-beige);
+      border-bottom: 1px solid var(--border-beige);
+    }
+
+    .menu-filters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 48px;
+    }
+
+    .filter-btn {
+      padding: 10px 20px;
+      border-radius: var(--radius-pill);
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--chocolate-medium);
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-beige);
+      transition: all 0.25s ease;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--chocolate-deep);
+      color: var(--chocolate-deep);
+    }
+
+    .filter-btn.is-active {
+      background-color: var(--chocolate-deep);
+      color: var(--bg-cream);
+      border-color: var(--chocolate-deep);
+    }
+
+    .menu-category-block {
+      margin-bottom: 56px;
+    }
+
+    .menu-category-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .menu-category-block.is-hidden {
+      display: none;
+    }
+
+    .category-heading {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 26px;
+    }
+
+    .category-heading h3 {
+      font-family: var(--font-display);
+      font-size: 1.85rem;
+      font-weight: 600;
+      color: var(--chocolate-deep);
+      white-space: nowrap;
+    }
+
+    .category-line {
+      flex: 1;
+      height: 1px;
+      background-color: var(--border-strong);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .product-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-beige);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-soft);
+      transition: transform var(--transition-smooth), box-shadow var(--transition-smooth),
+        border-color var(--transition-smooth);
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--border-strong);
+    }
+
+    .product-media {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background-color: var(--bg-paper);
+    }
+
+    .product-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .product-card:hover .product-media img {
+      transform: scale(1.06);
+    }
+
+    .product-tag {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      background-color: rgba(255, 253, 249, 0.92);
+      backdrop-filter: blur(6px);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--chocolate-deep);
+      border: 1px solid var(--border-beige);
+    }
+
+    .product-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .product-title {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--chocolate-deep);
+      margin-bottom: 10px;
+    }
+
+    .product-desc {
+      font-size: 0.92rem;
+      color: var(--chocolate-muted);
+      line-height: 1.6;
+      margin-bottom: 22px;
+      flex: 1;
+    }
+
+    .product-footer {
+      padding-top: 16px;
+      border-top: 1px solid var(--border-beige);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .product-note {
+      font-size: 0.78rem;
+      color: var(--chocolate-muted);
+      font-style: italic;
+    }
+
+    /* =========================================================================
+       8. SEÇÃO 5 — DIFERENCIAIS DA CONFEITARIA
+       ========================================================================= */
+    .features-section {
+      padding: 96px 0;
+      background-color: var(--bg-cream);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-beige);
+      border-radius: var(--radius-lg);
+      padding: 32px 26px;
+      transition: transform var(--transition-smooth), border-color var(--transition-smooth),
+        box-shadow var(--transition-smooth);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--rose-deep);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .feature-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background-color: var(--rose-soft);
+      color: var(--chocolate-deep);
+      display: grid;
+      place-items: center;
+      margin-bottom: 22px;
+    }
+
+    .feature-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: var(--chocolate-deep);
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      font-size: 0.92rem;
+      color: var(--chocolate-muted);
+      line-height: 1.65;
+    }
+
+    /* =========================================================================
+       9. SEÇÃO 6 — GALERIA EDITORIAL COM LIGHTBOX
+       ========================================================================= */
+    .gallery-section {
+      padding: 104px 0;
+      background-color: var(--bg-paper);
+      border-top: 1px solid var(--border-beige);
+      border-bottom: 1px solid var(--border-beige);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 240px;
+      gap: 20px;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-beige);
+      background-color: var(--bg-card);
+      cursor: pointer;
+    }
+
+    /* Composição editorial assimétrica com tamanhos variados */
+    .gallery-item--1 {
+      grid-column: span 5;
+      grid-row: span 2;
+    }
+
+    .gallery-item--2 {
+      grid-column: span 4;
+      grid-row: span 1;
+    }
+
+    .gallery-item--3 {
+      grid-column: span 3;
+      grid-row: span 1;
+    }
+
+    .gallery-item--4 {
+      grid-column: span 3;
+      grid-row: span 1;
+    }
+
+    .gallery-item--5 {
+      grid-column: span 4;
+      grid-row: span 1;
+    }
+
+    .gallery-item--6 {
+      grid-column: span 12;
+      grid-row: span 1;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 45%, rgba(44, 26, 18, 0.78) 100%);
+      opacity: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 22px;
+      transition: opacity 0.35s ease;
+    }
+
+    .gallery-item:hover img,
+    .gallery-item:focus-visible img {
+      transform: scale(1.06);
+    }
+
+    .gallery-item:hover .gallery-overlay,
+    .gallery-item:focus-visible .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-caption {
+      color: var(--bg-cream);
+    }
+
+    .gallery-caption strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .gallery-caption span {
+      font-size: 0.8rem;
+      opacity: 0.88;
+    }
+
+    .gallery-zoom-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background-color: rgba(255, 253, 249, 0.92);
+      color: var(--chocolate-deep);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    /* Lightbox Modal */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(28, 16, 11, 0.92);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .lightbox.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-dialog {
+      position: relative;
+      max-width: 920px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .lightbox-img-wrap {
+      max-height: 74vh;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 2px solid rgba(251, 248, 243, 0.18);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    .lightbox-img-wrap img {
+      max-height: 74vh;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .lightbox-meta {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 16px;
+      color: var(--bg-cream);
+    }
+
+    .lightbox-meta h4 {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 600;
+    }
+
+    .lightbox-meta p {
+      font-size: 0.88rem;
+      color: rgba(251, 248, 243, 0.78);
+    }
+
+    .lightbox-counter {
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      color: rgba(251, 248, 243, 0.75);
+      white-space: nowrap;
+    }
+
+    .lightbox-btn {
+      position: fixed;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background-color: rgba(251, 248, 243, 0.14);
+      border: 1px solid rgba(251, 248, 243, 0.25);
+      color: var(--bg-cream);
+      display: grid;
+      place-items: center;
+      transition: background-color 0.2s ease;
+    }
+
+    .lightbox-btn:hover {
+      background-color: rgba(251, 248, 243, 0.28);
+    }
+
+    .lightbox-close {
+      top: 22px;
+      right: 22px;
+    }
+
+    .lightbox-prev {
+      left: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .lightbox-next {
+      right: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    /* =========================================================================
+       10. SEÇÃO 7 — DEPOIMENTOS DE CLIENTES
+       ========================================================================= */
+    .testimonials-section {
+      padding: 104px 0;
+      background-color: var(--bg-cream);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .testimonial-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-beige);
+      border-radius: var(--radius-lg);
+      padding: 34px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .quote-mark {
+      font-family: var(--font-display);
+      font-size: 3.4rem;
+      line-height: 0.8;
+      color: var(--rose-deep);
+      margin-bottom: 14px;
+    }
+
+    .testimonial-text {
+      font-size: 0.97rem;
+      color: var(--chocolate-medium);
+      line-height: 1.75;
+      margin-bottom: 26px;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border-beige);
+    }
+
+    .author-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background-color: var(--rose-soft);
+      color: var(--chocolate-deep);
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .author-info strong {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--chocolate-deep);
+    }
+
+    .author-info span {
+      font-size: 0.8rem;
+      color: var(--chocolate-muted);
+    }
+
+    /* =========================================================================
+       11. SEÇÃO 8 — CONTATO E ENCOMENDAS
+       ========================================================================= */
+    .contact-section {
+      padding: 104px 0;
+      background-color: var(--bg-paper);
+      border-top: 1px solid var(--border-beige);
+    }
+
+    .contact-box {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-beige);
+      border-radius: var(--radius-lg);
+      padding: 56px;
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .contact-lead {
+      font-size: 1.03rem;
+      color: var(--chocolate-muted);
+      margin: 16px 0 30px;
+      line-height: 1.75;
+    }
+
+    .contact-cta-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .contact-helper {
+      font-size: 0.82rem;
+      color: var(--chocolate-muted);
+    }
+
+    .contact-details {
+      display: grid;
+      gap: 18px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 20px;
+      background-color: var(--bg-cream);
+      border: 1px solid var(--border-beige);
+      border-radius: var(--radius-md);
+    }
+
+    .contact-item-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background-color: var(--rose-soft);
+      color: var(--chocolate-deep);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .contact-item strong {
+      display: block;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--chocolate-muted);
+      margin-bottom: 3px;
+    }
+
+    .contact-item span,
+    .contact-item a {
+      font-size: 0.98rem;
+      font-weight: 500;
+      color: var(--chocolate-deep);
+    }
+
+    .contact-item a:hover {
+      text-decoration: underline;
+    }
+
+    /* =========================================================================
+       12. SEÇÃO 9 — RODAPÉ
+       ========================================================================= */
+    .site-footer {
+      background-color: var(--chocolate-deep);
+      color: rgba(251, 248, 243, 0.85);
+      padding: 72px 0 32px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+      gap: 40px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(251, 248, 243, 0.14);
+    }
+
+    .footer-brand .brand-name {
+      color: var(--bg-cream);
+    }
+
+    .footer-brand .brand-tagline {
+      color: var(--rose-blush);
+    }
+
+    .footer-brand p {
+      margin-top: 16px;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: rgba(251, 248, 243, 0.72);
+      max-width: 300px;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--bg-cream);
+      margin-bottom: 16px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.9rem;
+    }
+
+    .footer-links a {
+      color: rgba(251, 248, 243, 0.76);
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--rose-blush);
+    }
+
+    .footer-bottom {
+      padding-top: 26px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-size: 0.82rem;
+      color: rgba(251, 248, 243, 0.62);
+    }
+
+    /* =========================================================================
+       13. ANIMAÇÕES SUTIS DE ENTRADA E REDUÇÃO DE MOVIMENTO
+       ========================================================================= */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* =========================================================================
+       14. RESPONSIVIDADE (TABLET E MOBILE)
+       ========================================================================= */
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .about-grid,
+      .contact-box {
+        grid-template-columns: 1fr;
+        gap: 42px;
+      }
+
+      .hero-media {
+        max-width: 540px;
+        margin: 0 auto;
+      }
+
+      .hero-floating-card {
+        left: 16px;
+        bottom: 16px;
+      }
+
+      .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 230px;
+      }
+
+      .gallery-item--1,
+      .gallery-item--2,
+      .gallery-item--3,
+      .gallery-item--4,
+      .gallery-item--5,
+      .gallery-item--6 {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+
+      .gallery-item--1 {
+        grid-column: span 2;
+      }
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        --header-height: 74px;
+      }
+
+      .nav-desktop,
+      .header-cta-desktop {
+        display: none;
+      }
+
+      .mobile-toggle {
+        display: inline-flex;
+      }
+
+      .hero {
+        padding: calc(var(--header-height) + 32px) 0 68px;
+      }
+
+      .about-section,
+      .menu-section,
+      .features-section,
+      .gallery-section,
+      .testimonials-section,
+      .contact-section {
+        padding: 76px 0;
+      }
+
+      .about-pillars,
+      .menu-grid,
+      .features-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-accent-box {
+        right: 12px;
+        top: 12px;
+        width: 110px;
+        height: 110px;
+      }
+
+      .contact-box {
+        padding: 30px 22px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 240px;
+      }
+
+      .gallery-item--1 {
+        grid-column: span 1;
+      }
+
+      .lightbox-prev {
+        left: 10px;
+      }
+
+      .lightbox-next {
+        right: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#conteudo-principal" class="skip-link">Pular para o conteúdo principal</a>
+
+  <!-- =========================================================================
+       SEÇÃO 1 — CABEÇALHO FIXO
+       ========================================================================= -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <!-- PERSONALIZAÇÃO: Nome e monograma da confeitaria -->
+      <a href="#inicio" class="brand-logo" aria-label="Atelier Amélia — Página inicial">
+        <span class="brand-monogram" aria-hidden="true">A</span>
+        <span class="brand-text">
+          <span class="brand-name">Atelier Amélia</span>
+          <span class="brand-tagline">Confeitaria Artesanal</span>
+        </span>
+      </a>
+
+      <nav class="nav-desktop" aria-label="Navegação principal">
+        <ul class="nav-list">
+          <li><a href="#inicio" class="nav-link is-active">Início</a></li>
+          <li><a href="#sobre" class="nav-link">Sobre</a></li>
+          <li><a href="#cardapio" class="nav-link">Cardápio</a></li>
+          <li><a href="#galeria" class="nav-link">Galeria</a></li>
+          <li><a href="#contato" class="nav-link">Contato</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <!-- PERSONALIZAÇÃO: Número de WhatsApp de exemplo (substitua no script ou no href) -->
+        <a
+          href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Gostaria%20de%20fazer%20uma%20encomenda%20com%20o%20Atelier%20Am%C3%A9lia."
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-primary btn-sm header-cta-desktop"
+          data-whatsapp-default
+        >
+          Faça sua encomenda
+        </a>
+
+        <button
+          type="button"
+          class="mobile-toggle"
+          id="mobile-toggle"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Abrir menu de navegação"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <line x1="3" y1="7" x2="21" y2="7" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="17" x2="21" y2="17" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Menu Mobile -->
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <nav aria-label="Navegação mobile">
+      <ul class="mobile-nav-list">
+        <li><a href="#inicio" class="mobile-nav-link">Início</a></li>
+        <li><a href="#sobre" class="mobile-nav-link">Sobre</a></li>
+        <li><a href="#cardapio" class="mobile-nav-link">Cardápio</a></li>
+        <li><a href="#galeria" class="mobile-nav-link">Galeria</a></li>
+        <li><a href="#contato" class="mobile-nav-link">Contato</a></li>
+      </ul>
+    </nav>
+
+    <div class="mobile-menu-footer">
+      <a
+        href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Gostaria%20de%20fazer%20uma%20encomenda%20com%20o%20Atelier%20Am%C3%A9lia."
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary"
+        data-whatsapp-default
+      >
+        Faça sua encomenda pelo WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <main id="conteudo-principal">
+    <!-- =======================================================================
+         SEÇÃO 2 — HERO (APRESENTAÇÃO PRINCIPAL)
+         ======================================================================= -->
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div class="hero-content reveal">
+          <div class="hero-badge">
+            <span class="hero-badge-dot" aria-hidden="true"></span>
+            Produção artesanal • Sob encomenda
+          </div>
+
+          <h1 class="hero-title">
+            Pequenos momentos merecem <em>doces especiais.</em>
+          </h1>
+
+          <p class="hero-description">
+            No Atelier Amélia, cada bolo, torta e doce fino é preparado em pequenos lotes com
+            ingredientes selecionados, técnica clássica e acabamento delicado para tornar suas
+            celebrações inesquecíveis.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#cardapio" class="btn btn-primary">Conheça nossos doces</a>
+            <a href="#contato" class="btn btn-secondary">Fale conosco</a>
+          </div>
+
+          <div class="hero-highlights">
+            <div class="hero-highlight-item">
+              <strong>100% Artesanal</strong>
+              <span>Sem misturas prontas ou conservantes</span>
+            </div>
+            <div class="hero-highlight-item">
+              <strong>Sob Demanda</strong>
+              <span>Frescor garantido na data do seu evento</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-media reveal">
+          <div class="hero-image-frame">
+            <!-- PERSONALIZAÇÃO: Fotografia principal da seção Hero -->
+            <img
+              src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=1200&q=85"
+              alt="Bolo artesanal em camadas com creme de baunilha e frutas vermelhas frescas"
+            />
+          </div>
+
+          <aside class="hero-floating-card" aria-label="Destaque da casa">
+            <p>“Feito à mão, no tempo certo de cada receita.”</p>
+            <span>Fava de baunilha, chocolate belga & frutas frescas</span>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SEÇÃO 3 — SOBRE A CONFEITARIA
+         ======================================================================= -->
+    <section class="about-section" id="sobre">
+      <div class="container about-grid">
+        <div class="about-visual reveal">
+          <div class="about-img-main">
+            <!-- PERSONALIZAÇÃO: Fotografia institucional da seção Sobre -->
+            <img
+              src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&w=1000&q=85"
+              alt="Doces artesanais finalizados delicadamente sobre bancada de confeitaria"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="about-accent-box" aria-hidden="true">
+            <strong>Desde 2018</strong>
+            <span>Receitas autorais</span>
+          </div>
+        </div>
+
+        <div class="about-content reveal">
+          <span class="eyebrow">Nossa História</span>
+          <h2 class="section-title">
+            O afeto das receitas de família unido à <em>alta confeitaria.</em>
+          </h2>
+
+          <p>
+            O Atelier Amélia nasceu do desejo de resgatar a confeitaria feita com calma, respeito aos
+            processos naturais e olhar minucioso para cada acabamento. O que começou em uma cozinha
+            caseira preparando bolos para celebrações íntimas transformou-se em um ateliê dedicado a
+            criar experiências memoráveis à mesa.
+          </p>
+
+          <p>
+            Trabalhamos exclusivamente sob encomenda para que cada criação saia do forno no dia da
+            entrega, preservando texturas leves, aromas verdadeiros e o equilíbrio exato de doçura.
+          </p>
+
+          <div class="about-pillars">
+            <div class="pillar-item">
+              <span class="pillar-dot" aria-hidden="true"></span>
+              <div>
+                <strong>Produção artesanal</strong>
+                <span>Massas, caldas e recheios feitos do zero diariamente.</span>
+              </div>
+            </div>
+
+            <div class="pillar-item">
+              <span class="pillar-dot" aria-hidden="true"></span>
+              <div>
+                <strong>Ingredientes selecionados</strong>
+                <span>Manteiga extra, chocolate nobre e frutas frescas.</span>
+              </div>
+            </div>
+
+            <div class="pillar-item">
+              <span class="pillar-dot" aria-hidden="true"></span>
+              <div>
+                <strong>Atenção aos detalhes</strong>
+                <span>Decoração delicada pensada para encantar no olhar.</span>
+              </div>
+            </div>
+
+            <div class="pillar-item">
+              <span class="pillar-dot" aria-hidden="true"></span>
+              <div>
+                <strong>Carinho em cada pedido</strong>
+                <span>Atendimento próximo para personalizar sua encomenda.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-signature">
+            <div>
+              <div class="signature-script">Amélia Vasconcelos</div>
+              <div class="signature-role">Chef Pâtissière & Fundadora</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SEÇÃO 4 — CARDÁPIO ARTESANAL
+         ======================================================================= -->
+    <section class="menu-section" id="cardapio">
+      <div class="container">
+        <header class="section-header section-header--center reveal">
+          <span class="eyebrow">Cardápio Autoral</span>
+          <h2 class="section-title">Criações feitas <em>sob encomenda</em></h2>
+          <p class="section-subtitle">
+            Explore nossas categorias e clique em “Consultar encomenda” para verificar tamanhos,
+            personalizações e disponibilidade de datas pelo WhatsApp.
+          </p>
+        </header>
+
+        <!-- Filtro interativo por categoria -->
+        <div class="menu-filters" role="group" aria-label="Filtrar cardápio por categoria">
+          <button type="button" class="filter-btn is-active" data-filter="todos" aria-pressed="true">
+            Todas as categorias
+          </button>
+          <button type="button" class="filter-btn" data-filter="bolos-artesanais" aria-pressed="false">
+            Bolos artesanais
+          </button>
+          <button type="button" class="filter-btn" data-filter="bolos-aniversario" aria-pressed="false">
+            Bolos de aniversário
+          </button>
+          <button type="button" class="filter-btn" data-filter="tortas-cheesecakes" aria-pressed="false">
+            Tortas e cheesecakes
+          </button>
+          <button type="button" class="filter-btn" data-filter="doces-finos" aria-pressed="false">
+            Doces finos
+          </button>
+          <button type="button" class="filter-btn" data-filter="brownies-sobremesas" aria-pressed="false">
+            Brownies e sobremesas
+          </button>
+        </div>
+
+        <!-- CATEGORIA 1: BOLOS ARTESANAIS -->
+        <div class="menu-category-block" data-category="bolos-artesanais">
+          <div class="category-heading">
+            <h3>Bolos artesanais</h3>
+            <span class="category-line" aria-hidden="true"></span>
+          </div>
+
+          <div class="menu-grid">
+            <article class="product-card reveal">
+              <div class="product-media">
+                <span class="product-tag">Clássico da casa</span>
+                <img
+                  src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=800&q=80"
+                  alt="Bolo de Baunilha e Frutas Vermelhas"
+                  loading="lazy"
+                />
+              </div>
+              <div class="product-body">
+                <h4 class="product-title">Baunilha Bourbon & Frutas Vermelhas</h4>
+                <p class="product-desc">
+                  Massa amanteigada aromatizada com fava de baunilha, creme diplomata leve e geleia
+                  artesanal de morangos e framboesas frescas.
+                </p>
+                <div class="product-footer">
+                  <span class="product-note">15 a 35 fatias</span>
+                  <a
+                    href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20encomenda%20do%20bolo%20Baunilha%20Bourbon%20%26%20Frutas%20Vermelhas."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-rose btn-sm"
+                    data-whatsapp-product="Baunilha Bourbon & Frutas Vermelhas"
+                  >
+                    Consultar encomenda
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-media">
+                <img
+                  src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80"
+                  alt="Bolo Chocolate Belga 70% e Avelãs"
+                  loading="lazy"
+                />
+              </div>
+              <div class="product-body">
+                <h4 class="product-title">Chocolate Belga 70% & Praliné de Avelã</h4>
+                <p class="product-desc">
+                  Camadas úmidas de cacau alcalino intercaladas com ganache sedosa de chocolate meio
+                  amargo e crocante artesanal de avelãs torradas.
+                </p>
+                <div class="product-footer">
+                  <span class="product-note">15 a 35 fatias</span>
+                  <a
+                    href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20encomenda%20do%20bolo%20Chocolate%20Belga%2070%25%20%26%20Pralin%C3%A9%20de%20Avel%C3%A3."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-rose btn-sm"
+                    data-whatsapp-product="Chocolate Belga 70% & Praliné de Avelã"
+                  >
+                    Consultar encomenda
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-media">
+                <img
+                  src="https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=800&q=80"
+                  alt="Bolo Pistache Siciliano e Limão"
+                  loading="lazy"
+                />
+              </div>
+              <div class="product-body">
+                <h4 class="product-title">Pistache Torrado & Limão Siciliano</h4>
+                <p class="product-desc">
+                  Massa delicada de pistache puro com mousseline suave, toque cítrico de limão
+                  siciliano e cobertura aveludada de chocolate branco caramelizado.
+                </p>
+                <div class="product-footer">
+                  <span class="product-note">15 a 30 fatias</span>
+                  <a
+                    href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20encomenda%20do%20bolo%20Pistache%20Torrado%20%26%20Lim%C3%A3o%20Siciliano."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-rose btn-sm"
+                    data-whatsapp-product="Pistache Torrado & Limão Siciliano"
+                  >
+                    Consultar encomenda
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- CATEGORIA 2: BOLOS DE ANIVERSÁRIO -->
+        <div class="menu-category-block" data-category="bolos-aniversario">
+          <div class="category-heading">
+            <h3>Bolos de aniversário</h3>
+            <span class="category-line" aria-hidden="true"></span>
+          </div>
+
+          <div class="menu-grid">
+            <article class="product-card reveal">
+              <div class="product-media">
+                <span class="product-tag">Personalizável</span>
+                <img
+                  src="https://images.unsplash.com/photo-1562440499-64c9a111f713?auto=format&fit=crop&w=800&q=80"
+                  alt="Bolo Espatulado em Buttercream com Flores Naturais"
+                  loading="lazy"
+                />
+              </div>
+              <div class="product-body">
+                <h4 class="product-title">Atelier Floral em Buttercream Suíço</h4>
+                <p class="product-desc">
+                  Acabamento espatulado minimalista em tons suaves e arranjo de flores naturais
+                  higienizadas. Sabores e paleta definidos conforme o seu evento.
+                </p>
+                <div class="product-footer">
+                  <span class="product-note">1 ou 2 andares</span>
+                  <a
+                    href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20encomenda%20do%20bolo%20Atelier%20Floral%20em%20Buttercream%20Su%C3%AD%C3%A7o."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-rose btn-sm"
+                    data-whatsapp-product="Atelier Floral em Buttercream Suíço"
+                  >
+                    Consultar encomenda
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-media">
+                <img
+                  src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?auto=format&fit=crop&w=800&q=80"
+                  alt="Naked Cake Rústico de Frutas da Estação"
+                  loading="lazy"
+                />
+              </div>
+              <div class="product-body">
+                <h4 class="product-title">Naked Cake Rústico da Estação</h4>
+                <p class="product-desc">
+                  Camadas aparentes de pão de ló amanteigado, brigadeiro branco cremoso, doce de
+                  leite cozido lentamente e seleção de frutas frescas.
+                </p>
+                <div class="product-footer">
+                  <span class="product-note">20 a 45 fatias</span>
+                  <a
+                    href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20encomenda%20do%20Naked%20Cake%20R%C3%BAstico%20da%20Esta%C3%A7%C3%A3o."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-rose btn-sm"
+                    data-whatsapp-product="Naked Cake Rústico da Estação"
+                  >
+                    Consultar encomenda
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-media">
+                <img
+                  src="https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?auto=format&fit=crop&w=800&q=80"
+                  alt="Bolo Celebration Caramelo Salgado e Nozes"
+                  loading="lazy"
+                />
+              </div>
+              <div class="product-body">
+                <h4 class="product-title">Celebration Caramelo Salgado & Nozes</h4>
+                <p class="product-desc">
+                  Massa de especiarias suaves e nozes chilenas, recheio de caramelo toffee com flor
+                  de sal e cobertura cremosa de mascarpone.
+                </p>
+                <div class="product-footer">
+                  <span class="product-note">15 a 35 fatias</span>
+                  <a
+                    href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20encomenda%20do%20bolo%20Celebration%20Caramelo%20Salgado%20%26%20Nozes."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-rose btn-sm"
+                    data-whatsapp-product="Celebration Caramelo Salgado & Nozes"
+                  >
+                    Consultar encomenda
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- CATEGORIA 3: TORTAS E CHEESECAKES -->
+        <div class="menu-category-block" data-category="tortas-cheesecakes">
+          <div class="category-heading">
+            <h3>Tortas e cheesecakes</h3>
+            <span class="category-line" aria-hidden="true"></span>
+          </div>
+
+          <div class="menu-grid">
+            <article class="product-card reveal">
+              <div class="product-media">
+                <span class="product-tag">Mais pedido</span>
+                <img
+                  src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=800&q=80"
+                  alt="Cheesecake Cremoso com Calda de Framboesa"
+                  loading="lazy"
+                />
+              </div>
+              <div class="product-body">
+                <h4 class="product-title">Cheesecake Clássico & Coulis de Framboesa</h4>
+                <p class="product-desc">
+                  Base crocante de sablé amanteigado, creme assado de cream cheese e baunilha
+                  natural, finalizado com calda rústica de framboesas frescas.
+                </p>
+                <div class="product-footer">
+                  <span class="product-note">Serve 12 a 16 fatias</span>
+                  <a
+                    href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20encomenda%20do%20Cheesecake%20Cl%C3%A1ssico%20%26%20Coulis%20de%20Framboesa."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-rose btn-sm"
+                    data-whatsapp-product="Cheesecake Clássico & Coulis de Framboesa"
+                  >
+                    Consultar encomenda
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-media">
+                <img
+                  src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=800&q=80"
+                  alt="Tartelette de Limão Siciliano com Merengue"
+                  loading="lazy"
+                />
+              </div>
+              <div class="product-body">
+                <h4 class="product-title">Tarte Citron & Merengue Maçaricado</h4>
+                <p class="product-desc">
+                  Massa pâte sucrée dourada, curd cremoso de limão siciliano espremido na hora e
+                  nuvem leve de merengue suíço dourado no maçarico.
+                </p>
+                <div class="product-footer">
+                  <span class="product-note">Inteira ou mini tortas</span>
+                  <a
+                    href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20encomenda%20da%20Tarte%20Citron%20%26%20Merengue%20Ma%C3%A7aricado."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-rose btn-sm"
+                    data-whatsapp-product="Tarte Citron & Merengue Maçaricado"
+                  >
+                    Consultar encomenda
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-media">
+                <img
+                  src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80"
+                  alt="Torta Ganache de Chocolate Intenso e Caramelo"
+                  loading="lazy"
+                />
+              </div>
+              <div class="product-body">
+                <h4 class="product-title">Torta Trufada de Cacau & Flor de Sal</h4>
+                <p class="product-desc">
+                  Massa sablée de cacau intenso recheada com ganache cremosa de chocolate belga
+                  63%, camada fina de caramelo e cristais delicados de flor de sal.
+                </p>
+                <div class="product-footer">
+                  <span class="product-note">Serve 12 a 16 fatias</span>
+                  <a
+                    href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20encomenda%20da%20Torta%20Trufada%20de%20Cacau%20%26%20Flor%20de%20Sal."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-rose btn-sm"
+                    data-whatsapp-product="Torta Trufada de Cacau & Flor de Sal"
+                  >
+                    Consultar encomenda
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- CATEGORIA 4: DOCES FINOS -->
+        <div class="menu-category-block" data-category="doces-finos">
+          <div class="category-heading">
+            <h3>Doces finos</h3>
+            <span class="category-line" aria-hidden="true"></span>
+          </div>
+
+          <div class="menu-grid">
+            <article class="product-card reveal">
+              <div class="product-media">
+                <span class="product-tag">Para eventos & presentes</span>
+                <img
+                  src="https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=800&q=80"
+                  alt="Macarons Franceses Artesanais"
+                  loading="lazy"
+                />
+              </div>
+              <div class="product-body">
+                <h4 class="product-title">Macarons Parisienses Sortidos</h4>
+                <p class="product-desc">
+                  Casquinhas delicadas de farinha de amêndoas recheadas com ganache de baunilha,
+                  framboesa, pistache, chocolate ao leite ou caramelo salgado.
+                </p>
+                <div class="product-footer">
+                  <span class="product-note">Caixas ou cento</span>
+                  <a
+                    href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20encomenda%20dos%20Macarons%20Parisienses%20Sortidos."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-rose btn-sm"
+                    data-whatsapp-product="Macarons Parisienses Sortidos"
+                  >
+                    Consultar encomenda
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-media">
+                <img
+                  src="https://images.unsplash.com/photo-1548365328-8c6db3220e4c?auto=format&fit=crop&w=800&q=80"
+                  alt="Seleção de Doces Finos e Trufas Artesanais"
+                  loading="lazy"
+                />
+              </div>
+              <div class="product-body">
+                <h4 class="product-title">Camafeu de Nozes & Fondant Suave</h4>
+                <p class="product-desc">
+                  Receita tradicional equilibrada com nozes selecionadas selecionadas à mão, banho
+                  fino de fondant aveludado e meia noz dourada no topo.
+                </p>
+                <div class="product-footer">
+                  <span class="product-note">A partir de 25 unid.</span>
+                  <a
+                    href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20encomenda%20do%20Camafeu%20de%20Nozes%20%26%20Fondant%20Suave."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-rose btn-sm"
+                    data-whatsapp-product="Camafeu de Nozes & Fondant Suave"
+                  >
+                    Consultar encomenda
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-media">
+                <img
+                  src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&w=800&q=80"
+                  alt="Choux Craquelin de Baunilha e Praliné"
+                  loading="lazy"
+                />
+              </div>
+              <div class="product-body">
+                <h4 class="product-title">Mini Choux Craquelin de Baunilha</h4>
+                <p class="product-desc">
+                  Massa choux leve coberta por crosta crocante de açúcar mascavo e recheada na hora
+                  com creme leve de baunilha de Madagascar.
+                </p>
+                <div class="product-footer">
+                  <span class="product-note">A partir de 20 unid.</span>
+                  <a
+                    href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20encomenda%20do%20Mini%20Choux%20Craquelin%20de%20Baunilha."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-rose btn-sm"
+                    data-whatsapp-product="Mini Choux Craquelin de Baunilha"
+                  >
+                    Consultar encomenda
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- CATEGORIA 5: BROWNIES E SOBREMESAS -->
+        <div class="menu-category-block" data-category="brownies-sobremesas">
+          <div class="category-heading">
+            <h3>Brownies e sobremesas</h3>
+            <span class="category-line" aria-hidden="true"></span>
+          </div>
+
+          <div class="menu-grid">
+            <article class="product-card reveal">
+              <div class="product-media">
+                <img
+                  src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80"
+                  alt="Brownie Fudge de Chocolate Intenso com Nozes"
+                  loading="lazy"
+                />
+              </div>
+              <div class="product-body">
+                <h4 class="product-title">Brownie Fudge Intenso & Nozes Pecan</h4>
+                <p class="product-desc">
+                  Casquinha brilhante e quebradiça por fora, interior denso e úmido de chocolate
+                  nobre derretido com pedaços generosos de nozes pecan torradas.
+                </p>
+                <div class="product-footer">
+                  <span class="product-note">Caixa presente ou placa</span>
+                  <a
+                    href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20encomenda%20do%20Brownie%20Fudge%20Intenso%20%26%20Nozes%20Pecan."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-rose btn-sm"
+                    data-whatsapp-product="Brownie Fudge Intenso & Nozes Pecan"
+                  >
+                    Consultar encomenda
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-media">
+                <img
+                  src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=800&q=80"
+                  alt="Pavlova Artesanal com Frutas Vermelhas"
+                  loading="lazy"
+                />
+              </div>
+              <div class="product-body">
+                <h4 class="product-title">Pavlova de Merengue & Frutas Frescas</h4>
+                <p class="product-desc">
+                  Disco crocante de suspiro artesanal com coração macio, chantilly fresco de
+                  baunilha, morangos, mirtilos e redução suave de frutas vermelhas.
+                </p>
+                <div class="product-footer">
+                  <span class="product-note">Sobremesa na travessa</span>
+                  <a
+                    href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20encomenda%20da%20Pavlova%20de%20Merengue%20%26%20Frutas%20Frescas."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-rose btn-sm"
+                    data-whatsapp-product="Pavlova de Merengue & Frutas Frescas"
+                  >
+                    Consultar encomenda
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <article class="product-card reveal">
+              <div class="product-media">
+                <img
+                  src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80"
+                  alt="Tiramisù Artesanal com Mascarpone e Cacau"
+                  loading="lazy"
+                />
+              </div>
+              <div class="product-body">
+                <h4 class="product-title">Tiramisù Clássico da Casa</h4>
+                <p class="product-desc">
+                  Biscoitos savoiardi artesanais embebidos em café especial de torra média, creme
+                  aerado de mascarpone autêntico e finalização com cacau puro.
+                </p>
+                <div class="product-footer">
+                  <span class="product-note">Serve 8 a 12 pessoas</span>
+                  <a
+                    href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20encomenda%20do%20Tiramis%C3%B9%20Cl%C3%A1ssico%20da%20Casa."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-rose btn-sm"
+                    data-whatsapp-product="Tiramisù Clássico da Casa"
+                  >
+                    Consultar encomenda
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SEÇÃO 5 — DIFERENCIAIS DA CONFEITARIA
+         ======================================================================= -->
+    <section class="features-section" id="diferenciais">
+      <div class="container">
+        <header class="section-header section-header--center reveal">
+          <span class="eyebrow">Nosso Compromisso</span>
+          <h2 class="section-title">Por que escolher o <em>Atelier Amélia</em></h2>
+          <p class="section-subtitle">
+            Cuidamos de cada etapa do preparo para que você receba um produto fresco, autêntico e
+            preparado especialmente para o seu momento.
+          </p>
+        </header>
+
+        <div class="features-grid">
+          <article class="feature-card reveal">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2c2.5 3 4 5.5 4 8a4 4 0 0 1-8 0c0-2.5 1.5-5 4-8Z" />
+                <path d="M6 15h12l-1 5H7l-1-5Z" />
+                <path d="M4 15h16" />
+              </svg>
+            </div>
+            <h3>Produção artesanal</h3>
+            <p>
+              Cada receita é executada manualmente em pequenos lotes, respeitando o ponto ideal de
+              cocção, descanso e montagem.
+            </p>
+          </article>
+
+          <article class="feature-card reveal">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v18" />
+                <path d="M17 7c-2.5 0-5 2-5 5" />
+                <path d="M7 11c2.5 0 5 2 5 5" />
+                <path d="M17 14c-2.5 0-5 2-5 5" />
+              </svg>
+            </div>
+            <h3>Ingredientes de qualidade</h3>
+            <p>
+              Selecionamos manteiga extra, chocolates nobres, favas de baunilha e frutas frescas da
+              estação para um sabor limpo e marcante.
+            </p>
+          </article>
+
+          <article class="feature-card reveal">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9" />
+                <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+              </svg>
+            </div>
+            <h3>Personalização de encomendas</h3>
+            <p>
+              Adaptamos tamanhos, combinações de recheios e acabamentos florais de acordo com o
+              estilo da sua celebração ou presente.
+            </p>
+          </article>
+
+          <article class="feature-card reveal">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" />
+                <polyline points="12 7 12 12 15 14" />
+              </svg>
+            </div>
+            <h3>Preparação sob demanda</h3>
+            <p>
+              Não trabalhamos com estoque congelado: sua encomenda é produzida especialmente para a
+              data e horário agendados.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SEÇÃO 6 — GALERIA EDITORIAL COM LIGHTBOX
+         ======================================================================= -->
+    <section class="gallery-section" id="galeria">
+      <div class="container">
+        <header class="section-header section-header--center reveal">
+          <span class="eyebrow">Galeria Visual</span>
+          <h2 class="section-title">Texturas, cores e <em>acabamentos</em></h2>
+          <p class="section-subtitle">
+            Um olhar sobre nossas produções recentes. Clique em qualquer fotografia para ampliar os
+            detalhes.
+          </p>
+        </header>
+
+        <!-- PERSONALIZAÇÃO: Imagens da galeria editorial -->
+        <div class="gallery-grid">
+          <div
+            class="gallery-item gallery-item--1 reveal"
+            role="button"
+            tabindex="0"
+            data-gallery-index="0"
+            aria-label="Ampliar foto: Bolo floral em buttercream suíço"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1562440499-64c9a111f713?auto=format&fit=crop&w=1000&q=85"
+              alt="Bolo espatulado com acabamento delicado e flores naturais"
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <div class="gallery-caption">
+                <strong>Atelier Floral</strong>
+                <span>Acabamento espatulado & flores naturais</span>
+              </div>
+              <span class="gallery-zoom-badge" aria-hidden="true">+</span>
+            </div>
+          </div>
+
+          <div
+            class="gallery-item gallery-item--2 reveal"
+            role="button"
+            tabindex="0"
+            data-gallery-index="1"
+            aria-label="Ampliar foto: Macarons artesanais em tons suaves"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=1000&q=85"
+              alt="Macarons franceses artesanais em tons pastel"
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <div class="gallery-caption">
+                <strong>Macarons Parisienses</strong>
+                <span>Farinha de amêndoas & recheios autorais</span>
+              </div>
+              <span class="gallery-zoom-badge" aria-hidden="true">+</span>
+            </div>
+          </div>
+
+          <div
+            class="gallery-item gallery-item--3 reveal"
+            role="button"
+            tabindex="0"
+            data-gallery-index="2"
+            aria-label="Ampliar foto: Tartelette de limão siciliano maçaricada"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=1000&q=85"
+              alt="Tarte de limão siciliano com merengue dourado"
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <div class="gallery-caption">
+                <strong>Tarte Citron</strong>
+                <span>Curd cítrico & merengue suíço</span>
+              </div>
+              <span class="gallery-zoom-badge" aria-hidden="true">+</span>
+            </div>
+          </div>
+
+          <div
+            class="gallery-item gallery-item--4 reveal"
+            role="button"
+            tabindex="0"
+            data-gallery-index="3"
+            aria-label="Ampliar foto: Cheesecake cremoso com calda de frutas vermelhas"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=1000&q=85"
+              alt="Fatia de cheesecake cremoso com calda artesanal de framboesa"
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <div class="gallery-caption">
+                <strong>Cheesecake Clássico</strong>
+                <span>Textura aveludada & coulis fresco</span>
+              </div>
+              <span class="gallery-zoom-badge" aria-hidden="true">+</span>
+            </div>
+          </div>
+
+          <div
+            class="gallery-item gallery-item--5 reveal"
+            role="button"
+            tabindex="0"
+            data-gallery-index="4"
+            aria-label="Ampliar foto: Naked cake rústico com frutas frescas"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1535141192574-5d4897c12636?auto=format&fit=crop&w=1000&q=85"
+              alt="Naked cake de camadas decorado com frutas vermelhas frescas"
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <div class="gallery-caption">
+                <strong>Naked Cake Rústico</strong>
+                <span>Frutas selecionadas da estação</span>
+              </div>
+              <span class="gallery-zoom-badge" aria-hidden="true">+</span>
+            </div>
+          </div>
+
+          <div
+            class="gallery-item gallery-item--6 reveal"
+            role="button"
+            tabindex="0"
+            data-gallery-index="5"
+            aria-label="Ampliar foto: Mesa de doces finos e bolos para celebrações"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&w=1400&q=85"
+              alt="Seleção de doces artesanais e preparações frescas na bancada"
+              loading="lazy"
+            />
+            <div class="gallery-overlay">
+              <div class="gallery-caption">
+                <strong>Mesa de Celebração</strong>
+                <span>Composição personalizada para eventos íntimos</span>
+              </div>
+              <span class="gallery-zoom-badge" aria-hidden="true">+</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SEÇÃO 7 — DEPOIMENTOS DE CLIENTES
+         ======================================================================= -->
+    <section class="testimonials-section" id="depoimentos">
+      <div class="container">
+        <header class="section-header section-header--center reveal">
+          <span class="eyebrow">Histórias à Mesa</span>
+          <h2 class="section-title">Quem já celebrou <em>conosco</em></h2>
+          <p class="section-subtitle">
+            O retorno de clientes que confiaram ao Atelier Amélia os doces de seus momentos especiais.
+          </p>
+        </header>
+
+        <div class="testimonials-grid">
+          <article class="testimonial-card reveal">
+            <div>
+              <div class="quote-mark" aria-hidden="true">“</div>
+              <p class="testimonial-text">
+                Encomendei o bolo de baunilha com frutas vermelhas para o aniversário da minha mãe e
+                foi unanimidade na família. A massa estava leve, o creme nada enjoativo e a
+                apresentação impecável do início ao fim do atendimento.
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <div class="author-avatar" aria-hidden="true">CM</div>
+              <div class="author-info">
+                <strong>Camila Monteiro</strong>
+                <span>Encomenda de bolo de aniversário</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card reveal">
+            <div>
+              <div class="quote-mark" aria-hidden="true">“</div>
+              <p class="testimonial-text">
+                Os macarons e os camafeus de nozes fizeram toda a diferença no nosso jantar de
+                noivado. Dá para sentir a qualidade dos ingredientes logo na primeira mordida. Com
+                certeza voltaremos a pedir nas próximas datas.
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <div class="author-avatar" aria-hidden="true">RF</div>
+              <div class="author-info">
+                <strong>Rafael Figueiredo</strong>
+                <span>Doces finos para celebração íntima</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card reveal">
+            <div>
+              <div class="quote-mark" aria-hidden="true">“</div>
+              <p class="testimonial-text">
+                Sempre compro o cheesecake com calda de framboesa para almoços de domingo em casa.
+                Chega extremamente fresco, muito bem embalado e com aquele sabor caseiro sofisticado
+                que é difícil encontrar hoje em dia.
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <div class="author-avatar" aria-hidden="true">BL</div>
+              <div class="author-info">
+                <strong>Beatriz Lacerda</strong>
+                <span>Cliente recorrente</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SEÇÃO 8 — CONTATO E ENCOMENDAS
+         ======================================================================= -->
+    <section class="contact-section" id="contato">
+      <div class="container">
+        <div class="contact-box reveal">
+          <div>
+            <span class="eyebrow">Encomendas & Atendimento</span>
+            <h2 class="section-title">
+              Vamos criar o doce ideal para o <em>seu momento?</em>
+            </h2>
+            <p class="contact-lead">
+              Atendemos mediante agendamento prévio para garantir o frescor de cada preparo. Envie
+              uma mensagem pelo WhatsApp informando a data do seu evento, o número estimado de
+              convidados e suas preferências de sabor.
+            </p>
+
+            <div class="contact-cta-wrap">
+              <!-- PERSONALIZAÇÃO: Botão principal de WhatsApp com mensagem inicial preenchida -->
+              <a
+                href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20disponibilidade%20e%20fazer%20uma%20encomenda%20com%20o%20Atelier%20Am%C3%A9lia."
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-primary"
+                data-whatsapp-default
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z" />
+                </svg>
+                Iniciar conversa pelo WhatsApp
+              </a>
+              <span class="contact-helper">
+                Recomendamos antecedência mínima de 48h para bolos e 72h para eventos.
+              </span>
+            </div>
+          </div>
+
+          <div class="contact-details">
+            <!-- PERSONALIZAÇÃO: WhatsApp de exemplo -->
+            <div class="contact-item">
+              <div class="contact-item-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+              </div>
+              <div>
+                <strong>WhatsApp para encomendas</strong>
+                <a
+                  href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Gostaria%20de%20fazer%20uma%20encomenda."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-whatsapp-default
+                >
+                  (11) 99999-0000 <small>(número de exemplo)</small>
+                </a>
+              </div>
+            </div>
+
+            <!-- PERSONALIZAÇÃO: Instagram fictício -->
+            <div class="contact-item">
+              <div class="contact-item-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+              </div>
+              <div>
+                <strong>Instagram</strong>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                  @atelieramelia.confeitaria
+                </a>
+              </div>
+            </div>
+
+            <!-- PERSONALIZAÇÃO: Endereço fictício do ateliê -->
+            <div class="contact-item">
+              <div class="contact-item-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              </div>
+              <div>
+                <strong>Ateliê de Retirada</strong>
+                <span>Rua das Magnólias, 248 — Jardim Paulista, São Paulo - SP</span>
+              </div>
+            </div>
+
+            <!-- PERSONALIZAÇÃO: Horário de atendimento -->
+            <div class="contact-item">
+              <div class="contact-item-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+              </div>
+              <div>
+                <strong>Horário de Atendimento</strong>
+                <span>Terça a Sábado, das 09h às 19h • Retiradas com horário agendado</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =========================================================================
+       SEÇÃO 9 — RODAPÉ
+       ========================================================================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#inicio" class="brand-logo">
+            <span class="brand-monogram" aria-hidden="true">A</span>
+            <span class="brand-text">
+              <span class="brand-name">Atelier Amélia</span>
+              <span class="brand-tagline">Confeitaria Artesanal</span>
+            </span>
+          </a>
+          <p>
+            Confeitaria artesanal dedicada a bolos autorais, tortas e doces finos preparados sob
+            encomenda com ingredientes nobres e acabamento delicado.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <ul class="footer-links">
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#sobre">Sobre nós</a></li>
+            <li><a href="#cardapio">Cardápio</a></li>
+            <li><a href="#galeria">Galeria</a></li>
+            <li><a href="#contato">Contato</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Redes & Encomendas</h4>
+          <ul class="footer-links">
+            <li>
+              <a
+                href="https://wa.me/5511999990000?text=Ol%C3%A1!%20Gostaria%20de%20fazer%20uma%20encomenda."
+                target="_blank"
+                rel="noopener noreferrer"
+                data-whatsapp-default
+              >
+                WhatsApp: (11) 99999-0000
+              </a>
+            </li>
+            <li>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                Instagram: @atelieramelia.confeitaria
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Ateliê</h4>
+          <ul class="footer-links">
+            <li>Rua das Magnólias, 248</li>
+            <li>Jardim Paulista — São Paulo, SP</li>
+            <li>Terça a Sábado: 09h às 19h</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 Atelier Amélia — Confeitaria Artesanal. Todos os direitos reservados.</span>
+        <span>Produção artesanal • Imagens meramente ilustrativas</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       MODAL LIGHTBOX DA GALERIA
+       ========================================================================= -->
+  <div
+    class="lightbox"
+    id="gallery-lightbox"
+    role="dialog"
+    aria-modal="true"
+    aria-hidden="true"
+    aria-labelledby="lightbox-title"
+  >
+    <button
+      type="button"
+      class="lightbox-btn lightbox-close"
+      id="lightbox-close"
+      aria-label="Fechar visualização ampliada"
+    >
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18" />
+        <line x1="6" y1="6" x2="18" y2="18" />
+      </svg>
+    </button>
+
+    <button
+      type="button"
+      class="lightbox-btn lightbox-prev"
+      id="lightbox-prev"
+      aria-label="Imagem anterior"
+    >
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6" />
+      </svg>
+    </button>
+
+    <div class="lightbox-dialog">
+      <div class="lightbox-img-wrap">
+        <img id="lightbox-img" src="" alt="" />
+      </div>
+      <div class="lightbox-meta">
+        <div>
+          <h4 id="lightbox-title"></h4>
+          <p id="lightbox-desc"></p>
+        </div>
+        <span class="lightbox-counter" id="lightbox-counter">1 / 6</span>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="lightbox-btn lightbox-next"
+      id="lightbox-next"
+      aria-label="Próxima imagem"
+    >
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- =========================================================================
+       JAVASCRIPT PURO (INTERAÇÕES, FILTROS, LIGHTBOX E WHATSAPP)
+       ========================================================================= -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* =======================================================================
+         CONFIGURAÇÃO CENTRALIZADA (SUBSTITUA AQUI OS DADOS DA SUA CONFEITARIA)
+         Altere apenas o número abaixo (com DDI 55 + DDD + número) para atualizar
+         automaticamente todos os botões de WhatsApp do site.
+         ======================================================================= */
+      const CONFIG_CONFEITARIA = {
+        nomeMarca: 'Atelier Amélia',
+        whatsappNumero: '5511999990000', // <-- SUBSTITUA PELO SEU NÚMERO REAL (apenas dígitos)
+        mensagemGeral:
+          'Olá! Gostaria de consultar disponibilidade e fazer uma encomenda com o Atelier Amélia.'
+      };
+
+      /* 1. Sincronização automática dos links de WhatsApp */
+      function configurarLinksWhatsApp() {
+        const baseUrl = `https://wa.me/${CONFIG_CONFEITARIA.whatsappNumero}`;
+
+        document.querySelectorAll('[data-whatsapp-default]').forEach((link) => {
+          link.href = `${baseUrl}?text=${encodeURIComponent(CONFIG_CONFEITARIA.mensagemGeral)}`;
+        });
+
+        document.querySelectorAll('[data-whatsapp-product]').forEach((link) => {
+          const produto = link.getAttribute('data-whatsapp-product');
+          const msg = `Olá! Gostaria de consultar disponibilidade e valores para encomenda do item: ${produto} (${CONFIG_CONFEITARIA.nomeMarca}).`;
+          link.href = `${baseUrl}?text=${encodeURIComponent(msg)}`;
+        });
+      }
+
+      /* 2. Cabeçalho fixo com elevação ao rolar e destaque de link ativo */
+      const header = document.getElementById('site-header');
+      const navLinks = document.querySelectorAll('.nav-link');
+      const sections = document.querySelectorAll('main section[id]');
+
+      function atualizarHeaderAoRolar() {
+        if (window.scrollY > 24) {
+          header.classList.add('is-scrolled');
+        } else {
+          header.classList.remove('is-scrolled');
+        }
+
+        const scrollPos = window.scrollY + 140;
+        sections.forEach((section) => {
+          const top = section.offsetTop;
+          const height = section.offsetHeight;
+          const id = section.getAttribute('id');
+
+          if (scrollPos >= top && scrollPos < top + height) {
+            navLinks.forEach((link) => {
+              link.classList.toggle('is-active', link.getAttribute('href') === `#${id}`);
+            });
+          }
+        });
+      }
+
+      window.addEventListener('scroll', atualizarHeaderAoRolar, { passive: true });
+      atualizarHeaderAoRolar();
+
+      /* 3. Menu Mobile responsivo e acessível */
+      const mobileToggle = document.getElementById('mobile-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+      function alternarMenuMobile(forcarEstado) {
+        const aberto =
+          typeof forcarEstado === 'boolean'
+            ? forcarEstado
+            : !mobileMenu.classList.contains('is-open');
+
+        mobileMenu.classList.toggle('is-open', aberto);
+        mobileMenu.setAttribute('aria-hidden', String(!aberto));
+        mobileToggle.setAttribute('aria-expanded', String(aberto));
+        mobileToggle.setAttribute(
+          'aria-label',
+          aberto ? 'Fechar menu de navegação' : 'Abrir menu de navegação'
+        );
+        document.body.style.overflow = aberto ? 'hidden' : '';
+      }
+
+      mobileToggle.addEventListener('click', () => alternarMenuMobile());
+
+      mobileLinks.forEach((link) => {
+        link.addEventListener('click', () => alternarMenuMobile(false));
+      });
+
+      /* 4. Filtro de categorias do Cardápio */
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const categoryBlocks = document.querySelectorAll('.menu-category-block');
+
+      filterButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const filtro = btn.getAttribute('data-filter');
+
+          filterButtons.forEach((b) => {
+            const ativo = b === btn;
+            b.classList.toggle('is-active', ativo);
+            b.setAttribute('aria-pressed', String(ativo));
+          });
+
+          categoryBlocks.forEach((block) => {
+            const categoria = block.getAttribute('data-category');
+            const mostrar = filtro === 'todos' || categoria === filtro;
+            block.classList.toggle('is-hidden', !mostrar);
+          });
+        });
+      });
+
+      /* 5. Animações de entrada discretas (IntersectionObserver) */
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const revealElements = document.querySelectorAll('.reveal');
+
+      if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+        );
+
+        revealElements.forEach((el) => revealObserver.observe(el));
+      } else {
+        revealElements.forEach((el) => el.classList.add('is-visible'));
+      }
+
+      /* 6. Galeria com ampliação (Lightbox completo e navegável por teclado) */
+      const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+      const lightbox = document.getElementById('gallery-lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const lightboxTitle = document.getElementById('lightbox-title');
+      const lightboxDesc = document.getElementById('lightbox-desc');
+      const lightboxCounter = document.getElementById('lightbox-counter');
+      const btnClose = document.getElementById('lightbox-close');
+      const btnPrev = document.getElementById('lightbox-prev');
+      const btnNext = document.getElementById('lightbox-next');
+
+      let currentGalleryIndex = 0;
+      let lastFocusedElement = null;
+
+      const dadosGaleria = galleryItems.map((item) => {
+        const img = item.querySelector('img');
+        const titulo = item.querySelector('.gallery-caption strong')?.textContent || '';
+        const desc = item.querySelector('.gallery-caption span')?.textContent || '';
+        return {
+          src: img.currentSrc || img.src,
+          alt: img.alt,
+          titulo,
+          desc
+        };
+      });
+
+      function renderizarSlideLightbox(index) {
+        currentGalleryIndex = (index + dadosGaleria.length) % dadosGaleria.length;
+        const atual = dadosGaleria[currentGalleryIndex];
+        lightboxImg.src = atual.src;
+        lightboxImg.alt = atual.alt;
+        lightboxTitle.textContent = atual.titulo;
+        lightboxDesc.textContent = atual.desc;
+        lightboxCounter.textContent = `${currentGalleryIndex + 1} / ${dadosGaleria.length}`;
+      }
+
+      function abrirLightbox(index) {
+        lastFocusedElement = document.activeElement;
+        renderizarSlideLightbox(index);
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        btnClose.focus();
+      }
+
+      function fecharLightbox() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (lastFocusedElement) {
+          lastFocusedElement.focus();
+        }
+      }
+
+      galleryItems.forEach((item, idx) => {
+        item.addEventListener('click', () => abrirLightbox(idx));
+        item.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            abrirLightbox(idx);
+          }
+        });
+      });
+
+      btnClose.addEventListener('click', fecharLightbox);
+      btnPrev.addEventListener('click', () => renderizarSlideLightbox(currentGalleryIndex - 1));
+      btnNext.addEventListener('click', () => renderizarSlideLightbox(currentGalleryIndex + 1));
+
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+          fecharLightbox();
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (lightbox.classList.contains('is-open')) {
+            fecharLightbox();
+          } else if (mobileMenu.classList.contains('is-open')) {
+            alternarMenuMobile(false);
+          }
+        }
+
+        if (lightbox.classList.contains('is-open')) {
+          if (e.key === 'ArrowLeft') renderizarSlideLightbox(currentGalleryIndex - 1);
+          if (e.key === 'ArrowRight') renderizarSlideLightbox(currentGalleryIndex + 1);
+        }
+      });
+
+      /* 7. Fallback elegante caso alguma imagem seja aberta sem conexão */
+      const placeholderSvg =
+        'data:image/svg+xml;charset=UTF-8,' +
+        encodeURIComponent(
+          `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+            <rect width="800" height="600" fill="#F4EDE4"/>
+            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+              font-family="Georgia, serif" font-size="24" fill="#6B5145">
+              Atelier Amélia • Confeitaria Artesanal
+            </text>
+          </svg>`
+        );
+
+      document.querySelectorAll('img').forEach((img) => {
+        img.addEventListener('error', function () {
+          if (this.src !== placeholderSvg) {
+            this.src = placeholderSvg;
+          }
+        });
+      });
+
+      configurarLinksWhatsApp();
+    })();
+  </script>
+</body>
+</html>
